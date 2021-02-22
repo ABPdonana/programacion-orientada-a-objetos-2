@@ -1,3 +1,5 @@
+from articulo import Articulo
+
 class Factura():
 
     __numero_factura = 0
@@ -7,27 +9,24 @@ class Factura():
         self.numero = Factura.__numero_factura
         self.__lineas = []
         self.__cliente = cliente
-        self.__precio = 0
 
     def cliente(self):
         return self.__cliente
 
-    def anyadir_linea(self, linea):
-        self.__lineas.append(linea)
-        self.__precio += linea.precio()
+    def anyadir_linea(self, articulo, cantidad):
+        self.__lineas.append([articulo, cantidad])
+
+    def __precio(self):
+        self.__precio = 0
+        for i in self.__lineas:
+            self.__precio = i[0].precio() * i[1]
+        return self.__precio
 
     def eliminar_ultima_linea(self):
         self.__precio -= self.__lineas[-1].precio()
         self.__lineas.pop()
 
-class Linea():
-
-    def __init__(self, producto, precio):
-        self.__producto = producto
-        self.__precio = precio
-
-    def producto(self):
-        return self.__producto
-
-    def precio(self):
-        return self.__precio
+    def imprimir_factura(self):
+        for i in self.__lineas:
+            print(f'{i[1]} {i[0].denominacion()}')
+        print(self.__precio())
