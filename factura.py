@@ -27,6 +27,9 @@ class Factura():
         self.__lineas.pop()
 
     def imprimir_factura(self):
+        print(f'Nº FACTURA: {self.__numero_factura} CLIENTE: {self.__cliente.nombre()} {self.__cliente.apellidos()}')
+        print("ARTICULOS:")
         for i in self.__lineas:
             print(f'{i[1]} {i[0].denominacion()}')
+        print("TOTAL:")
         print(self.__precio())
